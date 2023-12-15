@@ -1,0 +1,116 @@
+:root {
+  --main-blue-color: #004e98;
+  --alt-blue-color: #3a6ea5;
+  --main-red-color: #dd1c1a;
+}
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+}
+.main-sec {
+  /* Sections style */
+  background-color: #fff;
+  padding: 15px;
+  margin: 10px 0;
+}
+.main-container {
+  background-color: #ebebeb;
+  height: 100vh;
+}
+.title {
+  background-color: var(--main-blue-color);
+  color: #fff;
+  text-align: center;
+  padding: 15px;
+  font-size: 30px;
+  font-weight: bold;
+}
+.container {
+  width: 800px;
+  margin: auto;
+}
+.container .game-info {
+  text-align: center;
+}
+.container .game-info span {
+  font-weight: bold;
+  color: var(--main-red-color);
+}
+.container .game-info span::before {
+  content: "[ ";
+  color: var(--main-red-color);
+}
+.container .game-info span::after {
+  content: " ]";
+  color: var(--main-red-color);
+}
+.container .start {
+  background-color: var(--alt-blue-color);
+  color: #fff;
+  padding: 15px;
+  text-align: center;
+  font-size: 22px;
+  cursor: pointer;
+  margin: 10px 0;
+  transition: background-color 0.2s;
+}
+.container .start:hover {
+  background-color: var(--main-blue-color);
+}
+.container .the-word {
+  text-align: center;
+  font-size: 40px;
+  font-weight: bold;
+  color: var(--main-blue-color);
+  display: none;
+}
+.container input {
+  padding: 10px;
+  width: 100%;
+  border: 2px solid var(--main-blue-color);
+  font-size: 20px;
+  text-align: center;
+  caret-color: var(--main-blue-color);
+}
+.container input:focus {
+  outline: none;
+}
+.upcoming-words {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  justify-content: center;
+}
+.upcoming-words span {
+  background-color: var(--main-blue-color);
+  color: #fff;
+  font-weight: bold;
+  padding: 6px 10px;
+  border-radius: 4px;
+  font-size: 18px;
+  user-select: none;
+}
+.statistics {
+  display: flex;
+  justify-content: space-between;
+}
+.statistics span {
+  color: var(--alt-blue-color);
+  font-weight: bold;
+}
+.finish {
+  text-align: center;
+  font-size: 30px;
+  font-weight: bold;
+}
+.finish .win {
+  color: var(--main-blue-color);
+}
+.finish .lose {
+  color: var(--main-red-color);
+}
