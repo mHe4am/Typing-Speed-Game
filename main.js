@@ -221,6 +221,9 @@ function genWords() {
 let starterLen = words.length;
 
 function startPlay() {
+  // Reset time for each word
+  timeLeft.innerHTML = defaultLvlSeconds;
+
   // Remove upcoming words when it runs out of words
   if (words.length <= 0) {
     upcomingWords.remove();
