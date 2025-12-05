@@ -1,32 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Typing Speed Game</title>
-    <link rel="stylesheet" href="./main.css" />
-  </head>
-  <body>
-    <div class="main-container">
-      <div class="title">Typing Speed Game</div>
-      <div class="container">
-        <div class="game-info main-sec">
-          You are playing at level <span class="lvl"></span> & You have
-          <span class="seconds"></span> seconds to type the word.
-        </div>
-        <div class="start">Start Playing</div>
-        <div class="the-word main-sec"></div>
-        <input type="text" />
-        <div class="upcoming-words main-sec">Words Will Appear Here</div>
-        <div class="statistics main-sec">
-          <div class="time-left">Time left: <span></span> seconds</div>
-          <div class="score">
-            Score: <span class="current">0</span> out of
-            <span class="total"></span>
-          </div>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Typing Speed Game</title>
+  <link rel="stylesheet" href="./main.css" />
+</head>
+
+<body>
+  <div class="main-container">
+    <div class="title">Typing Speed Game</div>
+    <div class="container">
+      <div class="game-info main-sec">
+        You are playing at level <span class="lvl"></span> & You have
+        <span class="seconds"></span> seconds to type the word.
+      </div>
+      <div class="select-lvl">
+        <button class="lvl-btn" data-lvl="Easy">Easy</button>
+        <button class="lvl-btn active" data-lvl="Normal">Normal</button>
+        <button class="lvl-btn" data-lvl="Hard">Hard</button>
+      </div>
+      <div class="start">Start Playing</div>
+      <div class="the-word main-sec"></div>
+      <input type="text" placeholder="Type the word" />
+      <div class="upcoming-words main-sec">Words Will Appear Here</div>
+      <div class="statistics main-sec">
+        <div class="time-left">Time left: <span></span> seconds</div>
+        <div class="score">
+          Score: <span class="current">0</span> out of
+          <span class="total"></span>
         </div>
       </div>
     </div>
-    <script src="./main.js"></script>
-  </body>
+  </div>
+  <script src="./main.js"></script>
+</body>
+
 </html>

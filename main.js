@@ -1,5 +1,5 @@
 // Words array
-const words = [
+let words = [
   "Cat",
   "Dog",
   "Red",
@@ -49,12 +49,35 @@ let upcomingSpans = document.querySelectorAll(".upcoming-words span");
 let timeLeft = document.querySelector(".statistics .time-left span");
 let currentScore = document.querySelector(".statistics .score .current");
 let totalScore = document.querySelector(".statistics .score .total");
+let lvlBtns = document.querySelectorAll(".select-lvl .lvl-btn");
 
 // Setting => level name + seconds + score
 lvlSpan.innerHTML = defaultLvl;
 secondsSpan.innerHTML = defaultLvlSeconds;
 timeLeft.innerHTML = defaultLvlSeconds;
 totalScore.innerHTML = words.length;
+
+// Level buttons click event
+lvlBtns.forEach((btn) => {
+  btn.onclick = function () {
+    // Remove active class from all buttons
+    lvlBtns.forEach((b) => {
+      b.classList.remove("active");
+    });
+
+    // Add active class to clicked button
+    this.classList.add("active");
+
+    // Update default level
+    defaultLvl = this.dataset.lvl;
+    defaultLvlSeconds = lvls[defaultLvl];
+
+    // Update display
+    lvlSpan.innerHTML = defaultLvl;
+    secondsSpan.innerHTML = defaultLvlSeconds;
+    timeLeft.innerHTML = defaultLvlSeconds;
+  };
+});
 
 // Disable paste event
 inputField.onpaste = () => false;
@@ -64,8 +87,115 @@ startBtn.onclick = function () {
   this.remove();
   inputField.focus();
 
+  // Disable level buttons
+  lvlBtns.forEach((btn) => {
+    btn.disabled = true;
+  });
+
   genWords();
 };
+
+function gameOver(isWin) {
+  // Re-enable level buttons
+  lvlBtns.forEach((btn) => {
+    btn.disabled = false;
+  });
+
+  // Create finish message
+  let span = document.createElement("span");
+  span.appendChild(document.createTextNode(isWin ? "Congratulations!" : "Game Over"));
+  span.className = isWin ? "win" : "lose";
+
+  let mainDiv = document.createElement("div");
+  mainDiv.className = "finish main-sec";
+  mainDiv.appendChild(span);
+  container.appendChild(mainDiv);
+
+  // Create retry button
+  let retryBtn = document.createElement("div");
+  retryBtn.className = "start";
+  retryBtn.appendChild(document.createTextNode("Retry"));
+  container.appendChild(retryBtn);
+
+  // Retry button click event
+  retryBtn.onclick = function () {
+    // Remove finish message and retry button
+    mainDiv.remove();
+    this.remove();
+
+    // Reset words array
+    words = [
+      "Cat",
+      "Dog",
+      "Red",
+      "Car",
+      "Happy",
+      "Flower",
+      "Pencil",
+      "Orange",
+      "Window",
+      "Music",
+      "Water",
+      "School",
+      "Friend",
+      "Phone",
+      "Amazing",
+      "Beautiful",
+      "Challenge",
+      "Delicious",
+      "Elephant",
+      "Furniture",
+      "Giraffe",
+      "Happiness",
+      "Island",
+      "Jewelry",
+    ];
+
+    // Reset score
+    currentScore.innerHTML = 0;
+    totalScore.innerHTML = words.length;
+
+    // Reset time
+    timeLeft.innerHTML = defaultLvlSeconds;
+
+    // Reset input
+    inputField.value = "";
+
+    // Hide current word
+    currentWord.style.display = "none";
+
+    // Recreate upcoming words div if removed
+    if (!document.querySelector(".upcoming-words")) {
+      let newUpcoming = document.createElement("div");
+      newUpcoming.className = "upcoming-words main-sec";
+      newUpcoming.appendChild(document.createTextNode("Words Will Appear Here"));
+      container.insertBefore(newUpcoming, document.querySelector(".statistics"));
+      upcomingWords = newUpcoming;
+    } else {
+      upcomingWords.innerHTML = "Words Will Appear Here";
+    }
+
+    // Recreate start button
+    let newStartBtn = document.createElement("div");
+    newStartBtn.className = "start";
+    newStartBtn.appendChild(document.createTextNode("Start Playing"));
+    container.insertBefore(newStartBtn, currentWord);
+    startBtn = newStartBtn;
+
+    // Add click event to new start button
+    startBtn.onclick = function () {
+      this.remove();
+      inputField.focus();
+
+      // Disable level buttons
+      lvlBtns.forEach((btn) => {
+        btn.disabled = true;
+      });
+
+      genWords();
+    };
+  };
+}
 
 function genWords() {
   currentWord.style.display = "block";
@@ -91,13 +221,6 @@ function genWords() {
 let starterLen = words.length;
 
 function startPlay() {
-  // Add more three seconds (+3) for the first word
-  if (words.length == starterLen - 1) {
-    timeLeft.innerHTML = defaultLvlSeconds + 3;
-  } else {
-    timeLeft.innerHTML = defaultLvlSeconds;
-  }
-
   // Remove upcoming words when it runs out of words
   if (words.length <= 0) {
     upcomingWords.remove();
@@ -108,33 +231,17 @@ function startPlay() {
 
     if (timeLeft.innerHTML <= 0) {
       clearInterval(start);
-      if (
-        inputField.value.toLowerCase() == currentWord.innerHTML.toLowerCase()
-      ) {
+      if (inputField.value == currentWord.innerHTML) {
         inputField.value = "";
         currentScore.innerHTML++;
 
         if (words.length <= 0) {
-          let span = document.createElement("span");
-          span.appendChild(document.createTextNode("Congratulations!"));
-          span.className = "win";
-
-          let mainDiv = document.createElement("div");
-          mainDiv.className = "finish main-sec";
-          mainDiv.appendChild(span);
-          container.appendChild(mainDiv);
+          gameOver(true);
         } else {
           genWords();
         }
       } else {
-        let span = document.createElement("span");
-        span.appendChild(document.createTextNode("Game Over"));
-        span.className = "lose";
-
-        let mainDiv = document.createElement("div");
-        mainDiv.className = "finish main-sec";
-        mainDiv.appendChild(span);
-        container.appendChild(mainDiv);
+        gameOver(false);
       }
     }
   }, 1000);

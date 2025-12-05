@@ -3,25 +3,30 @@
   --alt-blue-color: #3a6ea5;
   --main-red-color: #dd1c1a;
 }
+
 * {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
+
 body {
   font-family: Arial, Helvetica, sans-serif;
   margin: 0;
 }
+
 .main-sec {
   /* Sections style */
   background-color: #fff;
   padding: 15px;
   margin: 10px 0;
 }
+
 .main-container {
   background-color: #ebebeb;
   height: 100vh;
 }
+
 .title {
   background-color: var(--main-blue-color);
   color: #fff;
@@ -30,26 +35,50 @@ body {
   font-size: 30px;
   font-weight: bold;
 }
+
 .container {
   width: 800px;
   margin: auto;
 }
+
 .container .game-info {
   text-align: center;
 }
+
 .container .game-info span {
   font-weight: bold;
   color: var(--main-red-color);
 }
+
 .container .game-info span::before {
   content: "[ ";
   color: var(--main-red-color);
 }
+
 .container .game-info span::after {
   content: " ]";
   color: var(--main-red-color);
 }
-.container .start {
+
+@media (max-width: 480px) {
+  .container .select-lvl {
+    flex-direction: column;
+  }
+
+  .container .select-lvl .lvl-btn {
+    width: 100%;
+  }
+}
+
+.container .select-lvl {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 10px 0;
+}
+
+.container .start,
+.container .lvl-btn {
   background-color: var(--alt-blue-color);
   color: #fff;
   padding: 15px;
@@ -58,10 +87,29 @@ body {
   cursor: pointer;
   margin: 10px 0;
   transition: background-color 0.2s;
+  border: none;
 }
-.container .start:hover {
+
+.container .start:hover,
+.container .lvl-btn:hover {
   background-color: var(--main-blue-color);
 }
+
+.container .lvl-btn.active {
+  background-color: var(--main-blue-color);
+}
+
+.container .select-lvl .lvl-btn {
+  flex: 1 1 0;
+  display: inline-block;
+  margin: 0;
+}
+
+.container .lvl-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 .container .the-word {
   text-align: center;
   font-size: 40px;
@@ -69,6 +117,7 @@ body {
   color: var(--main-blue-color);
   display: none;
 }
+
 .container input {
   padding: 10px;
   width: 100%;
@@ -77,15 +126,22 @@ body {
   text-align: center;
   caret-color: var(--main-blue-color);
 }
+
 .container input:focus {
   outline: none;
 }
+
+.container input::placeholder {
+  opacity: 0.5;
+}
+
 .upcoming-words {
   display: flex;
   flex-wrap: wrap;
   gap: 5px;
   justify-content: center;
 }
+
 .upcoming-words span {
   background-color: var(--main-blue-color);
   color: #fff;
@@ -95,22 +151,27 @@ body {
   font-size: 18px;
   user-select: none;
 }
+
 .statistics {
   display: flex;
   justify-content: space-between;
 }
+
 .statistics span {
   color: var(--alt-blue-color);
   font-weight: bold;
 }
+
 .finish {
   text-align: center;
   font-size: 30px;
   font-weight: bold;
 }
+
 .finish .win {
   color: var(--main-blue-color);
 }
+
 .finish .lose {
   color: var(--main-red-color);
 }
